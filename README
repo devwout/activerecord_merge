@@ -1,0 +1,3 @@
+activerecord_merge : Simple merge for ActiveRecord objects and their associations
+
+See http://ewout.name/2010/04/generic-deep-merge-for-activerecord.

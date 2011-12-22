@@ -13,7 +13,7 @@ module Merge
   # Attribute hash used for comparison.
   def merge_attributes
     merge_attribute_names.inject({}) do |attrs, name|
-      attrs[name] = read_attribute(name)
+      attrs[name] = self[name]
       attrs
     end
   end
@@ -50,7 +50,7 @@ module Merge
           else
             other = object.send(r.name) - local
             # May be better to compare without the primary key attribute instead of setting it.
-            other.each {|o| o.write_attribute(r.primary_key_name, self.id)}
+            other.each {|o| o[r.primary_key_name] = self.id}
             other.reject! {|o| local.any? {|l| merge_if_equal(l,o) }}
             local << other
           end
@@ -61,12 +61,12 @@ module Merge
   end
   
   def merge_attributes!(*objects)
-    blank_attributes = merge_attribute_names.select {|att| read_attribute(att).blank?}
+    blank_attributes = merge_attribute_names.select {|att| self[att].blank?}
     until blank_attributes.empty? or objects.empty?
       object = objects.shift
       blank_attributes.reject! do |att|
-        if val = object.read_attribute(att) and not val.blank?
-          write_attribute(att, val)
+        if val = object[att] and not val.blank?
+          self[att] = val
         end
       end
     end

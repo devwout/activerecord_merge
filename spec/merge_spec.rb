@@ -1,6 +1,6 @@
 require 'yaml'
 require 'rubygems'
-require 'activerecord'
+require 'active_record'
 
 spec_dir = File.dirname(__FILE__)
 $LOAD_PATH.unshift spec_dir, File.join(spec_dir, '..', 'lib')
@@ -125,7 +125,7 @@ describe Merge do
       p1.merge!(p2)
       p1.projects.length.should == 3
       pr2.reload.people.length.should == 1
-      Person.connection.select_value("select count(*) from people_projects where project_id = #{pr2.id}").should == '1'
+      Person.connection.select_value("select count(*) from people_projects where project_id = #{pr2.id}").to_i.should == 1
       Person.first(:conditions => {:id => p2.id}).should be_nil
     end
     

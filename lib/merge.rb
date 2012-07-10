@@ -50,7 +50,7 @@ module Merge
           else
             other = object.send(r.name) - local
             # May be better to compare without the primary key attribute instead of setting it.
-            other.each {|o| o[r.primary_key_name] = self.id}
+            other.each {|o| o[r.foreign_key] = self.id}
             other.reject! {|o| local.any? {|l| merge_if_equal(l,o) }}
             local << other
           end

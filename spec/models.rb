@@ -41,7 +41,7 @@ class Phonenumber < ActiveRecord::Base
   def merge_equal?(p)
     p.is_a?(Phonenumber) and
     country_code == p.country_code and
-    flat_number = p.flat_number
+    flat_number == p.flat_number
   end
 end
 

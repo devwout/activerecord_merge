@@ -100,6 +100,17 @@ describe Merge do
       c1.phonenumbers.first.description.should == "Home"
       Phonenumber.first(:conditions => {:id => ph2.id}).should be_nil
     end
+
+    it 'should not merge associated objects that are not merge_equal' do
+      c1 = Company.create!
+      c2 = Company.create!
+      ph1 = Phonenumber.create!(:phonable => c1, :country_code => "32", :number => "123456")
+      ph2 = Phonenumber.create!(:phonable => c2, :country_code => "32", :number => "123457")
+      c1.merge!(c2)
+      c1.phonenumbers.length.should == 2
+      c1.phonenumbers.first.number.should == "123456"
+      c1.phonenumbers.last.number.should == "123457"
+    end
     
   end
   

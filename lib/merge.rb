@@ -95,6 +95,6 @@ ActiveRecord::Base.class_eval { include Merge }
 
 # Compatibility with ActiveRecord 2.x
 class ActiveRecord::Reflection::AssociationReflection
-  alias :foreign_key :primary_key_name unless instance_methods.include? "foreign_key"
+  alias :foreign_key :primary_key_name unless method_defined? :foreign_key
 end
-    
+

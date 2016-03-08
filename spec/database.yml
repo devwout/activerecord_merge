@@ -1,6 +1,7 @@
-adapter: mysql
+adapter: mysql2
+encoding: utf8
 database: activerecord_merge_test
 username: root
-password: 
-socket: /opt/local/var/run/mysql5/mysqld.sock
-encoding: utf8
+password:
+host: localhost
+port: 3306
